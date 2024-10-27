@@ -11,13 +11,13 @@ const TopBar = () => (
                     <span className="icon-bar"></span>
                     <span className="icon-bar"></span>
                 </button>
-                <a className="navbar-brand" href="#">Accueil</a>
+                <a className="navbar-brand" href="/" >Accueil</a>
             </div>
             <div className="collapse navbar-collapse">
                
                 <ul className="nav navbar-nav navbar-right">
                     <li>
-                       <a href="">
+                       <a href="index.html">
                        Déconnexion
                         </a>
                     </li>

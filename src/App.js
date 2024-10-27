@@ -27,7 +27,7 @@ const App = () => {
               <nav className="pull-left">
                 <ul>
                   <li>
-                    <a href="#">Home</a>
+                  <a href="/">Home</a>
                   </li>
                 </ul>
               </nav>
