@@ -5,7 +5,7 @@ import Modal from './Modal'; // Import the Modal component
 import './Content.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
-const MainContent = () => {
+const MainContent = ({ user }) => {
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedVideo, setSelectedVideo] = useState(null);
@@ -15,7 +15,7 @@ const MainContent = () => {
     const [showModal, setShowModal] = useState(false); // Modal state
     const [videoToDelete, setVideoToDelete] = useState(null); // ID of video to delete
     const videosPerPage = 6; // 3 videos per row * 2 rows
-    const connectedUserId = 1; // Simulated connected user ID
+    const connectedUserId = user.id; // Simulated connected user ID
 
     const fetchVideos = async () => {
         try {

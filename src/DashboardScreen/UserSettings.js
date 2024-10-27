@@ -1,26 +1,21 @@
 import React, { useState } from 'react';
 import Modal from './Modal'; // Adjust the import path as necessary
 
-const UserSettings = () => {
-    // Initialize state for user information
-    const [user, setUser] = useState({
-        id_client: 2, // Default client ID
-        email_client: 'michael23@example.com',
-        nom_client: 'Mike',
-        prenom_client: 'Andrew',
-        telephone_client: '123341',
-        passe: '',   // Password
-        passe2: ''   // Confirm Password
+const UserSettings = ({ user }) => {
+    const [userData, setUser] = useState({
+        id_client: user.id,
+        email_client: user.email,
+        nom_client: user.nom,
+        prenom_client: user.prenom,
+        telephone_client: user.phone,
+        passe: '',
+        passe2: ''
     });
 
-    // State for modal visibility
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalMessage, setModalMessage] = useState('');
-
-    // State for success alert
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
 
-    // Handle input changes
     const handleChange = (e) => {
         const { name, value } = e.target;
         setUser((prevUser) => ({
@@ -29,12 +24,11 @@ const UserSettings = () => {
         }));
     };
 
-    // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
 
         // Check if passwords match
-        if (user.passe !== user.passe2) {
+        if (userData.passe !== userData.passe2) {
             alert('Les mots de passe ne correspondent pas.');
             return;
         }
@@ -44,7 +38,6 @@ const UserSettings = () => {
         setIsModalOpen(true);
     };
 
-    // Confirm modification
     const handleConfirm = async () => {
         setIsModalOpen(false);
 
@@ -55,19 +48,19 @@ const UserSettings = () => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
-                    id_client: user.id_client, // Include the client ID
-                    nom_client: user.nom_client, 
-                    prenom_client: user.prenom_client, 
-                    email_client: user.email_client, 
-                    password_client: user.passe,
-                    telephone_client: user.telephone_client,
+                    id_client: userData.id_client,
+                    nom_client: userData.nom_client,
+                    prenom_client: userData.prenom_client,
+                    email_client: userData.email_client,
+                    password_client: userData.passe,
+                    telephone_client: userData.telephone_client,
                 }),
             });
 
             const result = await response.json();
             if (result.success) {
-                setShowSuccessAlert(true); // Show success alert
-                setTimeout(() => setShowSuccessAlert(false), 3000); // Hide alert after 3 seconds
+                setShowSuccessAlert(true);
+                setTimeout(() => setShowSuccessAlert(false), 3000);
             } else {
                 alert(`Erreur: ${result.message}`);
             }
@@ -77,7 +70,6 @@ const UserSettings = () => {
         }
     };
 
-    // Cancel modification
     const handleCancel = () => {
         setIsModalOpen(false);
     };
@@ -107,7 +99,7 @@ const UserSettings = () => {
                                                     className="form-control"
                                                     name="email_client"
                                                     placeholder="Email"
-                                                    value={user.email_client}
+                                                    value={userData.email_client} // Update this line
                                                     onChange={handleChange}
                                                 />
                                             </div>
@@ -123,7 +115,7 @@ const UserSettings = () => {
                                                     className="form-control"
                                                     name="prenom_client"
                                                     placeholder="Prénom"
-                                                    value={user.prenom_client}
+                                                    value={userData.prenom_client} // Update this line
                                                     onChange={handleChange}
                                                 />
                                             </div>
@@ -136,7 +128,7 @@ const UserSettings = () => {
                                                     className="form-control"
                                                     name="nom_client"
                                                     placeholder="Nom de famille"
-                                                    value={user.nom_client}
+                                                    value={userData.nom_client} // Update this line
                                                     onChange={handleChange}
                                                 />
                                             </div>
@@ -152,7 +144,7 @@ const UserSettings = () => {
                                                     className="form-control"
                                                     name="telephone_client"
                                                     placeholder="Téléphone"
-                                                    value={user.telephone_client}
+                                                    value={userData.telephone_client} // Update this line
                                                     onChange={handleChange}
                                                 />
                                             </div>
@@ -168,7 +160,7 @@ const UserSettings = () => {
                                                     className="form-control"
                                                     name="passe"
                                                     placeholder="Mot de passe"
-                                                    value={user.passe}
+                                                    value={userData.passe} // Update this line
                                                     onChange={handleChange}
                                                 />
                                             </div>
@@ -181,7 +173,7 @@ const UserSettings = () => {
                                                     className="form-control"
                                                     name="passe2"
                                                     placeholder="Mot de passe"
-                                                    value={user.passe2}
+                                                    value={userData.passe2} // Update this line
                                                     onChange={handleChange}
                                                 />
                                             </div>
@@ -198,7 +190,7 @@ const UserSettings = () => {
             </div>
             {isModalOpen && (
                 <Modal
-                  action="modified"
+                    action="modified"
                     message={modalMessage}
                     onConfirm={handleConfirm}
                     onCancel={handleCancel}
